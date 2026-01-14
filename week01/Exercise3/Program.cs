@@ -1,27 +1,33 @@
 using System;
+using System.Security.Cryptography;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.Write("Enter magic number: ");
-        int magic_number = int.Parse(Console.ReadLine());
+        Random randomGenerator = new Random();
+        int magicNumber = randomGenerator.Next(1, 101);
+        
+        int guess = -1;
 
-        Console.Write("Enter your guess: ");
-        int guess = int.Parse(Console.ReadLine());
-
-        while (guess != magic_number)
+        while (magicNumber != guess)
         {
-            if (guess < magic_number)
+            Console.Write("Enter your guess: ");
+            guess = int.Parse(Console.ReadLine());
+            
+            if (magicNumber > guess)
             {
                 Console.WriteLine("Higher");
             }
-            else if (guess > magic_number)
+            else if (magicNumber < guess)
             {
                 Console.WriteLine("Lower");
             }
+            if (magicNumber == guess)
+            {
+                Console.WriteLine("You guessed it!");
+            }
         }
-
-        Console.WriteLine("Hello World! This is the Exercise3 Project.");
     }
 }
+
