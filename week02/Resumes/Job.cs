@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic; 
+
+
 public class Job
 {
     //Responsibility: Keeps track of the company, job title, start year, and end year.
@@ -20,7 +24,7 @@ public class Resume
 
     //Attributes (variables)
     public string _fullName = "";
-    public List<Job> _companies = new list<Job>();
+    public List<Job> _companies = new List<Job>();
 
     //Behavior of my class resume (Methods)
     public void DisplayResume()
@@ -33,8 +37,10 @@ public class Resume
     }
 }
 
-static void Main(string[] args)
+class Program
 {
+    static void Main(string[] args)
+    {
     // Instants for job class
     Job job1 = new Job();
     job1._jobTitle = "Software Engineer";
@@ -52,8 +58,10 @@ static void Main(string[] args)
     resume1._fullName = "Muhire Bienvenue";
     resume1._companies.Add(job1);
     resume1._companies.Add(job2);
-    
+
     //Display the resume
     resume1.DisplayResume();
 
+    }
 }
+
