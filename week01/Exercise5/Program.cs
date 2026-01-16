@@ -18,7 +18,7 @@ class Program
         // Display
         Console.WriteLine($"{PromptUserName(FullName)}, The square of your number is {SquareNumber(FavNum)}");
     
-    }
+    } 
 
     static string DisplayMessage()
     {
