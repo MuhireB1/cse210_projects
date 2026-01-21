@@ -1,12 +1,12 @@
 using System;
 
+  // Exceeding Requirement: Added a mood field
 public class Entry
 {
     public string _date;
     public string _promptText;
     public string _entryText;
     
-    // Exceeding Requirement: Added a mood field
     public string _mood;
 
     public void Display()
