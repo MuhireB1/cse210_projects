@@ -1,26 +1,26 @@
+using System;
 using System.Collections.Generic;
 
-namespace JournalProject
+public class PromptGenerator
 {
-    public class PromptGenerator
+    public List<string> _prompts = new List<string>();
+
+    public PromptGenerator()
     {
-        private List<string> _prompts = new List<string>
-        {
-            "Who was the most interesting person I interacted with today?",
-            "What was the best part of my day?",
-            "How did I see the hand of the Lord in my life today?",
-            "What was the strongest emotion I felt today?",
-            "If I had one thing I could do over today, what would it be?",
-            "What did I learn today?",
-            "What am I grateful for today?"
-        };
+        // Initialize the list with the required prompts + some custom ones
+        _prompts.Add("Who was the most interesting person I interacted with today?");
+        _prompts.Add("What was the best part of my day?");
+        _prompts.Add("How did I see the hand of the Lord in my life today?");
+        _prompts.Add("What was the strongest emotion I felt today?");
+        _prompts.Add("If I had one thing I could do over today, what would it be?");
+        _prompts.Add("What is one thing I am grateful for today?");
+        _prompts.Add("What was the biggest challenge I faced today?");
+    }
 
-        private Random _random = new Random();
-
-        public string GetRandomPrompt()
-        {
-            int index = _random.Next(_prompts.Count);
-            return _prompts[index];
-        }
+    public string GetRandomPrompt()
+    {
+        Random random = new Random();
+        int index = random.Next(_prompts.Count);
+        return _prompts[index];
     }
 }

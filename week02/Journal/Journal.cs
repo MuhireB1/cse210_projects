@@ -1,63 +1,64 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace JournalProject
+public class Journal
 {
-    public class Journal
+    public List<Entry> _entries = new List<Entry>();
+
+    public void AddEntry(Entry newEntry)
     {
-        private List<Entry> _entries = new List<Entry>();
+        _entries.Add(newEntry);
+    }
 
-        public void AddEntry(Entry entry)
+    public void DisplayAll()
+    {
+        foreach (Entry entry in _entries)
         {
-            _entries.Add(entry);
+            entry.Display();
         }
+    }
 
-        public void DisplayEntries()
+    public void SaveToFile(string file)
+{
+    using (StreamWriter outputFile = new StreamWriter(file))
+    {
+        foreach (Entry entry in _entries)
         {
-            if (_entries.Count == 0)
-            {
-                Console.WriteLine("Journal is empty.");
-                return;
-            }
-
-            foreach (Entry entry in _entries)
-            {
-                entry.Display();
-            }
+            // Sanitize inputs: Replaced '|' with '~' so it doesn't break our loader
+            string cleanPrompt = entry._promptText.Replace("|", "~");
+            string cleanEntry = entry._entryText.Replace("|", "~");
+            string cleanMood = entry._mood.Replace("|", "~");
+            
+            outputFile.WriteLine($"{entry._date}|{cleanPrompt}|{cleanEntry}|{cleanMood}");
         }
+    }
+}
 
-        public void SaveToFile(string filename)
+
+
+
+    public void LoadFromFile(string file)
+    {
+        _entries.Clear(); // Clear current entries before loading new ones
+        
+        string[] lines = System.IO.File.ReadAllLines(file);
+
+        foreach (string line in lines)
         {
-            using (StreamWriter writer = new StreamWriter(filename))
+            string[] parts = line.Split("|");
+
+            // Ensure the line has all 4 parts before trying to use them
+            if (parts.Length == 4)
             {
-                foreach (Entry entry in _entries)
-                {
-                    writer.WriteLine(entry.ToFileString());
-                }
+                Entry newEntry = new Entry();
+                newEntry._date = parts[0];
+                newEntry._promptText = parts[1];
+                newEntry._entryText = parts[2];
+                newEntry._mood = parts[3];
+
+                _entries.Add(newEntry);
             }
-
-            Console.WriteLine("Journal saved successfully.");
-        }
-
-        public void LoadFromFile(string filename)
-        {
-            _entries.Clear();
-
-            if (!File.Exists(filename))
-            {
-                Console.WriteLine("File not found.");
-                return;
-            }
-
-            string[] lines = File.ReadAllLines(filename);
-
-            foreach (string line in lines)
-            {
-                Entry entry = Entry.FromFileString(line);
-                _entries.Add(entry);
-            }
-
-            Console.WriteLine("Journal loaded successfully.");
         }
     }
 }
