@@ -34,10 +34,6 @@ public class Journal
         }
     }
 }
-
-
-
-
     public void LoadFromFile(string file)
     {
         _entries.Clear(); // Clear current entries before loading new ones
